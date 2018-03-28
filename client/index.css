@@ -1,0 +1,102 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+.ac-container {
+    height: 100%;
+    display: flex;
+}
+
+.ac-container .ac-container-l {
+    flex: 1;
+    height: 100%;
+    padding: 15px;
+}
+
+.ac-container .ac-container-r {
+    flex: 1;
+    height: 100%;
+    border-left: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+}
+
+.ac-container-r .ac-preview-select {
+    margin: 15px 0;
+    text-align: center;
+}
+
+.ac-container-r .ac-preview-box {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.ac-preview-box .ac-preview-phone {
+    border: 1px solid #ccc;
+}
+
+.ac-preview-box .ac-preview-phone.normal {
+    width: 360px;
+    height: 640px;
+    overflow-y: auto;
+}
+
+.ac-model-normal {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.ac-preview-box .ac-img {
+    display: block;
+    width: 100%;
+}
+
+/* 弹窗 */
+
+.ac-scancode-modal-box {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+}
+
+.ac-scancode-modal-box.show {
+    visibility: visible;
+}
+
+.ac-scancode-modal-box .ac-scancode-modal-bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 101;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.ac-scancode-modal-box .ac-scancode-modal-content {
+    position: relative;
+    z-index: 102;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;;;
+    padding: 15px;
+}

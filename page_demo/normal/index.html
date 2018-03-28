@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+    <meta name="description" content="活动标题">
+    <meta name="keywords" content="活动标题">
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <title>活动标题</title>
+</head>
+
+<body>
+
+    <div class="wp">
+        <div class="wp-inner" id="wp-inner">
+            <div class="page page1"></div>
+            <div class="page page2"></div>
+            <div class="page page3"></div>
+            <div class="page page4"></div>
+            <div class="page page5"></div>
+            <div class="page page6"></div>
+            <div class="page page7"></div>
+            <div class="page page8"></div>
+            <div class="page page9"></div>
+        </div>
+
+        <div class="page-up" id="page-up"></div>
+    </div>
+    <script src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script src="./js/js.fullpage.js"></script>
+    <script src="./js/ajax.js"></script>
+    <script>
+        var aPage = document.getElementsByClassName('page');
+        var oPageUp = document.getElementById('page-up');
+
+        document.getElementById('wp-inner').fullpage({
+            change: function (e) {
+                if (e.cur === aPage.length - 1) {
+                    oPageUp.classList.add('hide');
+                } else {
+                    oPageUp.classList.remove('hide');
+                }
+            }
+        });
+
+        const weixin = {
+            config: {
+                url: '',
+                // 分享标题
+                title: '新能源车租赁盛典',
+                // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                link: '',
+                // 分享描述（分享描述不能过长，否则会影响分享图标分享给好友时无法正常显示）
+                desc: '广货宝携手轻纺交易园3月28日-4月4日举办广货宝新能源车租售钜惠盛典，现场立省4.6万元！',
+                // 分享图标
+                imgUrl: '',
+                // 分享类型,music、video或link，不填默认为link
+                type: '',
+                // 如果type是music或video，则要提供数据链接，默认为空
+                dataUrl: ''
+            },
+            init: function () {
+                // 请求拿微信 js-sdk 配置参数
+                ajax({
+                    type: 'get',
+                    url: config.url,
+                    data: {
+                        url: window.location.href
+                    },
+                    success: function (data) {
+                        var data = JSON.parse(data);
+                        wx.config({
+                            // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                            debug: false,
+                            // 必填，公众号的唯一标识
+                            appId: data.appId,
+                            timestamp: data.timestamp, // 必填，生成签名的时间戳
+                            nonceStr: data.nonceStr, // 必填，生成签名的随机串
+                            signature: data.signature, // 必填，签名，见附录1
+                            jsApiList: [
+                                // 分享到朋友圈
+                                'onMenuShareTimeline',
+                                // 分享给朋友
+                                'onMenuShareAppMessage'
+                            ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                        });
+
+                        // config 配置成功
+                        wx.ready(function () {
+                            console.log('wx-ready config 配置成功');
+                            // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+
+                            // 分享到朋朋友圈
+                            wx.onMenuShareTimeline({
+                                title: weixin.config.title,
+                                link: weixin.config.link,
+                                imgUrl: weixin.config.imgUrl,
+                                // 用户确认分享后执行的回调函数
+                                success: function () {},
+                                // 用户取消分享后执行的回调函数
+                                cancel: function () {}
+                            });
+
+                            // 分享给好友
+                            wx.onMenuShareAppMessage({
+                                title: weixin.config.title,
+                                link: weixin.config.link,
+                                desc: weixin.config.desc,
+                                imgUrl: weixin.config.imgUrl,
+                                // 分享类型,music、video或link，不填默认为link
+                                type: weixin.config.type,
+                                // 如果type是music或video，则要提供数据链接，默认为空
+                                dataUrl: weixin.config.dataUrl,
+                                // 用户确认分享后执行的回调函数
+                                success: function () {},
+                                // 用户取消分享后执行的回调函数
+                                cancel: function () {}
+                            });
+                        });
+
+                        // config 配置失败
+                        wx.error(function (err) {
+                            console.log('wx-config-error: ' + err);
+                            // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+                        });
+                    }
+                });
+            }
+        };
+
+        weixin.init();
+    </script>
+</body>
+
+</html>

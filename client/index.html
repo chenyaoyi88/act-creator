@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>活动发布</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+    <!-- <div id="qrcode"></div> -->
+
+    <div class="ac-container">
+        <div class="ac-container-l">
+            <div>
+                <label for="">展示形式</label>
+                <select id="model-select">
+                    <option value="normal">普通</option>
+                    <option value="fullpage">全屏滚动</option>
+                </select>
+            </div>
+            <div>
+                <label for="">上传图片</label>
+                <input id="file" type="file" multiple accept="image/gif, image/jpeg, image/png">
+            </div>
+            <div>
+                <button id="btn-upload">上传</button>
+                <button id="btn-release">发布</button>
+                <button id="btn-scancode-preview">扫码预览</button>
+            </div>
+        </div>
+        <div class="ac-container-r">
+            <div class="ac-preview-select">
+                <label for="">模拟机型 </label>
+                <select name="" id="phone-select">
+                    <option value="normal">normal</option>
+                    <option value="iPhone6/7/8">iPhone6/7/8</option>
+                    <option value="iPhone6/7/8Plus">iPhone6/7/8 Plus</option>
+                </select>
+            </div>
+            <div class="ac-preview-box normal">
+                <div class="ac-preview-phone normal" id="preview-phone">
+                    <!-- <img class="ac-img" src="./images/bg_01.jpg" alt=""> -->
+                </div>
+            </div>
+        </div>
+
+        <div class="ac-scancode-modal-box" id="scancode-modal-box">
+            <div class="ac-scancode-modal-content">
+                <div class="qrcode-box" id="qrcode"></div>
+            </div>
+            <div class="ac-scancode-modal-close"></div>
+            <div class="ac-scancode-modal-bg" id="scancode-modal-bg"></div>
+        </div>
+
+    </div>
+    <script src="./lib/jquery.min.js"></script>
+    <script src="./lib/qrcode.js"></script>
+    <script src="./index.js"></script>
+</body>
+
+</html>
